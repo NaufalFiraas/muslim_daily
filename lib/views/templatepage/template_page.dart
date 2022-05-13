@@ -1,5 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:muslim_daily/views/quranpage/quran_page.dart';
+import 'package:muslim_daily/views/sholatpage/sholat_page.dart';
 
 class TemplatePage extends StatefulWidget {
   const TemplatePage({Key? key}) : super(key: key);
@@ -11,9 +13,14 @@ class TemplatePage extends StatefulWidget {
 class _TemplatePageState extends State<TemplatePage> {
   int index = 0;
 
-  List<String> titles = [
+  final List<String> titles = [
     'Sholat',
     "Qur'an",
+  ];
+
+  final List<Widget> pages = [
+    SholatPage(),
+    QuranPage(),
   ];
 
   @override
@@ -35,22 +42,23 @@ class _TemplatePageState extends State<TemplatePage> {
           ),
         ),
       ),
+      body: pages[index],
       bottomNavigationBar: CurvedNavigationBar(
         index: index,
         animationDuration: const Duration(milliseconds: 400),
-        height: 60,
+        height: 55,
         backgroundColor: Colors.transparent,
         color: const Color(0xFF00C537),
         items: [
           Image.asset(
             'assets/images/kabah.png',
-            height: 35,
-            width: 35,
+            height: 30,
+            width: 30,
           ),
           Image.asset(
             'assets/images/quran.png',
-            height: 35,
-            width: 35,
+            height: 30,
+            width: 30,
           ),
         ],
         onTap: (index) => setState(() {

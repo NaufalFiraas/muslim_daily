@@ -123,6 +123,29 @@ class SholatPage extends StatelessWidget {
                   ),
                 ],
               ),
+              const SizedBox(
+                height: 28,
+              ),
+              const Text(
+                'Kota Malang',
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'Roboto',
+                  color: Color(0xFF00C537),
+                ),
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              const Text(
+                'Kamis, 12 Mei 2022',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'Roboto',
+                ),
+              ),
             ],
           ),
         ),

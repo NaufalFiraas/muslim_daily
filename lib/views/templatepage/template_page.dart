@@ -6,8 +6,12 @@ class TemplatePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(),
+      backgroundColor: Colors.white,
+      drawer: const Drawer(),
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.black),
+        backgroundColor: Colors.white,
+        shadowColor: Colors.transparent,
         title: const Text(
           'Sholat',
           style: TextStyle(

@@ -1,3 +1,4 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 class TemplatePage extends StatelessWidget {
@@ -22,7 +23,16 @@ class TemplatePage extends StatelessWidget {
           ),
         ),
       ),
-      body: Container(),
+      bottomNavigationBar: CurvedNavigationBar(
+        height: 60,
+        backgroundColor: Colors.transparent,
+        color: const Color(0xFF00C537),
+        items: [
+          Icon(Icons.add),
+          // Image.asset('assets/images/kabah.png', height: 30, width: 30,),
+          Icon(Icons.menu)
+        ],
+      ),
     );
   }
 }

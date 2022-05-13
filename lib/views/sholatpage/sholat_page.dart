@@ -15,7 +15,7 @@ class SholatPage extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(
-                height: 28,
+                height: 10,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

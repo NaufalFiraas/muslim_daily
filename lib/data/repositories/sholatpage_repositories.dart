@@ -1,4 +1,5 @@
 import 'package:geolocator/geolocator.dart';
+import 'package:geocoding/geocoding.dart';
 
 class SholatpageRepositories {
   Future<Position> determinePosition() async {
@@ -23,5 +24,15 @@ class SholatpageRepositories {
     }
 
     return await Geolocator.getCurrentPosition();
+  }
+
+  Future<List<Placemark>> getPlacemarks(
+      double latitude, double longitude) async {
+    try {
+      return await placemarkFromCoordinates(latitude, longitude);
+    } catch (e, stackTrace) {
+      print(stackTrace.toString());
+      throw Exception('Error get placemarks');
+    }
   }
 }

@@ -41,33 +41,39 @@ class SholatpageProvider {
 
   Future<String> getCityCode(String city, http.Client client) async {
     Uri url = Uri.parse(
-        'https://api.banghasan.com/sholat/format/json/kota/nama/$city');
+        'https://api.myquran.com/v1/sholat/kota/cari/$city');
     http.Response response = await client.get(url);
     if (response.statusCode >= 400) {
       throw Exception('Gagal mengambil info kode kota');
     }
-    String cityCode = json.decode(response.body)['query']['nama'];
+    String cityCode = json.decode(response.body)['data'][0]['id'];
     return cityCode;
   }
 
   Future<Map<String, dynamic>> getSholatTimes(
-      String cityCode, String date, http.Client client) async {
+      String cityCode, DateTime date, http.Client client) async {
+    int year = date.year;
+    int month = date.month;
+    int day = date.day;
     Uri url = Uri.parse(
-        'https://api.banghasan.com/sholat/format/json/jadwal/kota/$cityCode/tanggal$date');
+        'https://api.myquran.com/v1/sholat/jadwal/$cityCode/$year/$month/$day');
     http.Response response = await client.get(url);
     if (response.statusCode >= 400) {
       throw Exception('Gagal mengambil info waktu sholat');
     }
     Map<String, dynamic> responseDecoded =
-        json.decode(response.body)['jadwal']['data'];
+        json.decode(response.body)['data']['jadwal'];
     Map<String, dynamic> sholatTimes = {
-      'Imsak': responseDecoded['imsak'],
-      'Shubuh': responseDecoded['subuh'],
-      'Syuruk': responseDecoded['terbit'],
-      'Dhuhur': responseDecoded['dzuhur'],
-      'Ashar': responseDecoded['ashar'],
-      'Maghrib': responseDecoded['maghrib'],
-      "Isya'": responseDecoded['isya'],
+      'tanggal': responseDecoded['tanggal'],
+      'waktu': {
+        'Imsak': responseDecoded['imsak'],
+        'Shubuh': responseDecoded['subuh'],
+        'Syuruk': responseDecoded['terbit'],
+        'Dhuhur': responseDecoded['dzuhur'],
+        'Ashar': responseDecoded['ashar'],
+        'Maghrib': responseDecoded['maghrib'],
+        "Isya'": responseDecoded['isya'],
+      }
     };
 
     return sholatTimes;

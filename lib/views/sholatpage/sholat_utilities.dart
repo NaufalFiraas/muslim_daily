@@ -46,4 +46,13 @@ class SholatUtilities {
     offset: Offset(0, 1),
     color: Color(0x10000000),
   );
+
+  static TextStyle textStyling({required double size, Color? color}) {
+    return TextStyle(
+      color: color,
+      fontSize: size,
+      fontWeight: FontWeight.w500,
+      fontFamily: 'Roboto',
+    );
+  }
 }

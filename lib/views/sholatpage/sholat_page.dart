@@ -54,25 +54,19 @@ class _SholatPageState extends State<SholatPage> {
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         Text(
                           '01 : 10 : 35',
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style: SholatUtilities.textStyling(size: 22),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 7,
                         ),
                         Text(
                           'Menjelang Sholat Maghrib',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: 'Roboto',
-                            color: Color(0xFF727272),
+                          style: SholatUtilities.textStyling(
+                            size: 16,
+                            color: const Color(0xFF727272),
                           ),
                         ),
                       ],
@@ -116,13 +110,11 @@ class _SholatPageState extends State<SholatPage> {
                             height: 40,
                             width: 40,
                           ),
-                          const Text(
+                          Text(
                             'Arah Kiblat',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'Roboto',
-                              color: Color(0xFF727272),
+                            style: SholatUtilities.textStyling(
+                              size: 16,
+                              color: const Color(0xFF727272),
                             ),
                           ),
                         ],
@@ -134,25 +126,19 @@ class _SholatPageState extends State<SholatPage> {
               const SizedBox(
                 height: 20,
               ),
-              const Text(
+              Text(
                 'Kota Malang',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'Roboto',
-                  color: Color(0xFF00C537),
+                style: SholatUtilities.textStyling(
+                  size: 22,
+                  color: const Color(0xFF00C537),
                 ),
               ),
               const SizedBox(
                 height: 8,
               ),
-              const Text(
+              Text(
                 'Kamis, 12 Mei 2022',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'Roboto',
-                ),
+                style: SholatUtilities.textStyling(size: 18),
               ),
               const SizedBox(
                 height: 20,

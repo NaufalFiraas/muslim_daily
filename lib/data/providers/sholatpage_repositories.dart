@@ -1,7 +1,7 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 
-class SholatpageRepositories {
+class SholatpageProvider {
   Future<Position> determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;

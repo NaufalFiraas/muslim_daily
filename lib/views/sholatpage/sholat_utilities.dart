@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SholatUtitlies {
+class SholatUtilities {
   static List<Container> buildPraysContainers(List<String> prays) {
     return List.generate(
       prays.length,
@@ -39,4 +39,11 @@ class SholatUtitlies {
       },
     );
   }
+
+  static BoxShadow sholatBoxShadow = const BoxShadow(
+    spreadRadius: 1,
+    blurRadius: 3,
+    offset: Offset(0, 1),
+    color: Color(0x10000000),
+  );
 }

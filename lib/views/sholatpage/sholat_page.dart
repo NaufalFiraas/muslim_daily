@@ -24,7 +24,7 @@ class _SholatPageState extends State<SholatPage> {
   @override
   void initState() {
     super.initState();
-    praysContainers = SholatUtitlies.buildPraysContainers(prays);
+    praysContainers = SholatUtilities.buildPraysContainers(prays);
   }
 
   @override
@@ -50,14 +50,7 @@ class _SholatPageState extends State<SholatPage> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       color: const Color(0x2000C537),
-                      boxShadow: const [
-                        BoxShadow(
-                          spreadRadius: 1,
-                          blurRadius: 3,
-                          offset: Offset(0, 1),
-                          color: Color(0x10000000),
-                        ),
-                      ],
+                      boxShadow: [SholatUtilities.sholatBoxShadow],
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -113,14 +106,7 @@ class _SholatPageState extends State<SholatPage> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
                         color: const Color(0x2000C537),
-                        boxShadow: const [
-                          BoxShadow(
-                            spreadRadius: 1,
-                            blurRadius: 3,
-                            offset: Offset(0, 1),
-                            color: Color(0x10000000),
-                          ),
-                        ],
+                        boxShadow: [SholatUtilities.sholatBoxShadow],
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -174,14 +160,7 @@ class _SholatPageState extends State<SholatPage> {
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
-                  boxShadow: const [
-                    BoxShadow(
-                      spreadRadius: 1,
-                      blurRadius: 3,
-                      offset: Offset(0, 1),
-                      color: Color(0x10000000),
-                    ),
-                  ],
+                  boxShadow: [SholatUtilities.sholatBoxShadow],
                   color: const Color(0x2000C537),
                 ),
                 child: Column(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:muslim_daily/views/sholatpage/sholat_utilities.dart';
 
 class SholatPage extends StatefulWidget {
   const SholatPage({Key? key}) : super(key: key);
@@ -23,39 +24,7 @@ class _SholatPageState extends State<SholatPage> {
   @override
   void initState() {
     super.initState();
-    praysContainers = List.generate(prays.length, (index) {
-      return Container(
-        padding: const EdgeInsets.all(15),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(index == 0 ? 15 : 0),
-            bottom: Radius.circular(index == prays.length - 1 ? 15 : 0),
-          ),
-          color: index % 2 != 0 ? Colors.white : Colors.transparent,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              prays[index],
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-                fontFamily: 'Roboto',
-              ),
-            ),
-            const Text(
-              '00 : 00',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-                fontFamily: 'Roboto',
-              ),
-            ),
-          ],
-        ),
-      );
-    });
+    praysContainers = SholatUtitlies.buildPraysContainers(prays);
   }
 
   @override

@@ -5,7 +5,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:http/http.dart' as http;
 
 class SholatpageProvider {
-  Future<Position> determinePosition() async {
+  Future<Map<String, dynamic>> determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -26,13 +26,18 @@ class SholatpageProvider {
           'Location permissions are denied forever. Please check your device settings!');
     }
 
-    return await Geolocator.getCurrentPosition();
+    Position position = await Geolocator.getCurrentPosition();
+    return {
+      'latitude': position.latitude,
+      'longitude': position.longitude,
+    };
   }
 
-  Future<List<Placemark>> getPlacemarks(
+  Future<String?> getPlacemarks(
       double latitude, double longitude) async {
     try {
-      return await placemarkFromCoordinates(latitude, longitude);
+      List<Placemark> placemark = await placemarkFromCoordinates(latitude, longitude);
+      return placemark[0].subLocality;
     } catch (e, stackTrace) {
       print(stackTrace.toString());
       throw Exception('Error get placemarks');

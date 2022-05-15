@@ -1,8 +1,5 @@
-import 'package:geocoding/geocoding.dart';
 import 'package:muslim_daily/data/models/sholatpage_model.dart';
 import 'package:muslim_daily/data/providers/sholatpage_providers.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:http/http.dart' as http;
 
 class SholatpageRepositories {
   final SholatpageProvider sholatpageProvider;

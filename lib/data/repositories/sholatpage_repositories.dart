@@ -41,7 +41,7 @@ class SholatpageRepositories {
 
     //  ambil data kode kota dari http
     try {
-      cityCode = await sholatpageProvider.getCityCode(city, http.Client());
+      cityCode = await sholatpageProvider.getCityCode(city);
     } catch (e, stacktrace) {
       print(e.toString());
       print(stacktrace.toString());
@@ -51,7 +51,7 @@ class SholatpageRepositories {
     //  ambil data waktu sholat dari http
     try {
       getSholatTimeOutput = await sholatpageProvider.getSholatTimes(
-          cityCode, date, http.Client());
+          cityCode, date);
     } catch (e, stacktrace) {
       print(e.toString());
       print(stacktrace.toString());

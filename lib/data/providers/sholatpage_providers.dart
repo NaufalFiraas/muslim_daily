@@ -33,10 +33,10 @@ class SholatpageProvider {
     };
   }
 
-  Future<String?> getPlacemarks(
-      double latitude, double longitude) async {
+  Future<String?> getPlacemarks(double latitude, double longitude) async {
     try {
-      List<Placemark> placemark = await placemarkFromCoordinates(latitude, longitude);
+      List<Placemark> placemark =
+          await placemarkFromCoordinates(latitude, longitude);
       return placemark[0].subLocality;
     } catch (e, stackTrace) {
       print(e.toString());
@@ -45,9 +45,9 @@ class SholatpageProvider {
     }
   }
 
-  Future<String> getCityCode(String city, http.Client client) async {
-    Uri url = Uri.parse(
-        'https://api.myquran.com/v1/sholat/kota/cari/$city');
+  Future<String> getCityCode(String city, [http.Client? optionalClient]) async {
+    http.Client client = optionalClient ?? http.Client();
+    Uri url = Uri.parse('https://api.myquran.com/v1/sholat/kota/cari/$city');
     http.Response response = await client.get(url);
     if (response.statusCode >= 400) {
       throw Exception('Gagal mengambil info kode kota');
@@ -56,8 +56,9 @@ class SholatpageProvider {
     return cityCode;
   }
 
-  Future<Map<String, dynamic>> getSholatTimes(
-      String cityCode, DateTime date, http.Client client) async {
+  Future<Map<String, dynamic>> getSholatTimes(String cityCode, DateTime date,
+      [http.Client? optionalClient]) async {
+    http.Client client = optionalClient ?? http.Client();
     int year = date.year;
     int month = date.month;
     int day = date.day;

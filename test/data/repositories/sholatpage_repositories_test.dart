@@ -3,7 +3,6 @@ import 'package:mocktail/mocktail.dart';
 import 'package:muslim_daily/data/models/sholatpage_model.dart';
 import 'package:muslim_daily/data/providers/sholatpage_providers.dart';
 import 'package:muslim_daily/data/repositories/sholatpage_repositories.dart';
-import 'package:http/http.dart' as http;
 
 class SholatpageProviderMock extends Mock implements SholatpageProvider {}
 
@@ -30,14 +29,12 @@ void main() {
     });
 
     test('Failed get city code case: ', () async {
-      when(() => fakeProvider.getCityCode('Malang', http.Client()))
-          .thenThrow(Exception());
+      when(() => fakeProvider.getCityCode('Malang')).thenThrow(Exception());
       expect(await sholatpageRepositories.getSholatData(), equals(null));
     });
 
     test('Failed get sholat time case: ', () async {
-      when(() => fakeProvider.getSholatTimes('0', date, http.Client()))
-          .thenThrow(Exception());
+      when(() => fakeProvider.getSholatTimes('0', date)).thenThrow(Exception());
       expect(await sholatpageRepositories.getSholatData(), equals(null));
     });
 
@@ -53,8 +50,7 @@ void main() {
       );
       when(() => fakeProvider.getCityCode('Kediri'))
           .thenAnswer((_) => Future.value('1609'));
-      when(() => fakeProvider.getSholatTimes('1609', date))
-          .thenAnswer(
+      when(() => fakeProvider.getSholatTimes('1609', date)).thenAnswer(
         (_) => Future.value(
           {
             'tanggal': 'Rabu, 23/06/2021',

@@ -39,6 +39,7 @@ class SholatpageProvider {
       List<Placemark> placemark = await placemarkFromCoordinates(latitude, longitude);
       return placemark[0].subLocality;
     } catch (e, stackTrace) {
+      print(e.toString());
       print(stackTrace.toString());
       throw Exception('Error get placemarks');
     }

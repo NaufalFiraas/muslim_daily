@@ -1,4 +1,6 @@
-class SholatpageModel {
+import 'package:equatable/equatable.dart';
+
+class SholatpageModel extends Equatable {
   final String city;
   final String date;
   final Map<String, dynamic> sholatTime;
@@ -8,4 +10,7 @@ class SholatpageModel {
     required this.date,
     required this.sholatTime,
   });
+
+  @override
+  List<Object?> get props => [city, date, sholatTime];
 }

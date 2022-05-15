@@ -12,14 +12,22 @@ void main() {
   late SholatpageProvider sholatpageProvider;
   late Map<String, dynamic> cityCodeResponse;
   late Map<String, dynamic> sholatTimeResponse;
-  late Uri url;
+  late Uri cityCodeUrl;
   late String city;
+  late Uri sholatTimeUrl;
+  late DateTime time;
+  late String dummyCityCode;
 
   setUp(() {
+    time = DateTime.now();
     fakeClient = HttpMock();
     sholatpageProvider = SholatpageProvider();
     city = 'Malang';
-    url = Uri.parse('https://api.myquran.com/v1/sholat/kota/cari/$city');
+    cityCodeUrl =
+        Uri.parse('https://api.myquran.com/v1/sholat/kota/cari/$city');
+    dummyCityCode = '1609';
+    sholatTimeUrl = Uri.parse(
+        'https://api.myquran.com/v1/sholat/jadwal/$dummyCityCode/${time.year}/${time.month}/${time.day}');
     cityCodeResponse = {
       'status': true,
       'data': [
@@ -64,7 +72,7 @@ void main() {
 
   group('getCityCode tests: ', () {
     test('Success case: ', () async {
-      when(() => fakeClient.get(url)).thenAnswer((_) => Future.value(
+      when(() => fakeClient.get(cityCodeUrl)).thenAnswer((_) => Future.value(
             http.Response(json.encode(cityCodeResponse), 200),
           ));
       String cityCode = await sholatpageProvider.getCityCode(city, fakeClient);
@@ -72,10 +80,45 @@ void main() {
     });
 
     test('Failed case: ', () {
-      when(() => fakeClient.get(url)).thenAnswer((_) => Future.value(
+      when(() => fakeClient.get(cityCodeUrl)).thenAnswer((_) => Future.value(
             http.Response(json.encode(cityCodeResponse), 404),
           ));
       expect(sholatpageProvider.getCityCode(city, fakeClient), throwsException);
+    });
+  });
+
+  group('getSholatTimes tests: ', () {
+    test('Success case: ', () async {
+      when(() => fakeClient.get(sholatTimeUrl)).thenAnswer((_) => Future.value(
+            http.Response(json.encode(sholatTimeResponse), 200),
+          ));
+      Map<String, dynamic> result = await sholatpageProvider.getSholatTimes(
+          dummyCityCode, time, fakeClient);
+      expect(
+        result,
+        equals(
+          {
+            'tanggal': 'Rabu, 23/06/2021',
+            'waktu': {
+              'Imsak': '04:13',
+              'Shubuh': '04:23',
+              'Syuruk': '05:41',
+              'Dhuhur': '11:38',
+              'Ashar': '14:57',
+              'Maghrib': '17:27',
+              "Isya'": '18:42',
+            },
+          },
+        ),
+      );
+    });
+
+    test('Failed case:', () {
+      when(() => fakeClient.get(sholatTimeUrl)).thenAnswer((_) => Future.value(
+            http.Response(json.encode(sholatTimeResponse), 404),
+          ));
+      expect(sholatpageProvider.getSholatTimes(dummyCityCode, time, fakeClient),
+          throwsException);
     });
   });
 }

@@ -19,9 +19,9 @@ class SholatpageRepositories {
 
     //  ambil data latitude longitude dari geolocator
     try {
-      Position position = await sholatpageProvider.determinePosition();
-      latitude = position.latitude;
-      longitude = position.longitude;
+      Map<String, dynamic> position = await sholatpageProvider.determinePosition();
+      latitude = position['latitude'];
+      longitude = position['longitude'];
     } catch (e, stacktrace) {
       print(e.toString());
       print(stacktrace.toString());
@@ -30,9 +30,9 @@ class SholatpageRepositories {
 
     //  ambil data nama kota dari geocoding
     try {
-      List<Placemark> placemark =
+      String? placemark =
           await sholatpageProvider.getPlacemarks(latitude, longitude);
-      city = placemark[0].subLocality ?? 'Tidak Diketahui';
+      city = placemark ?? 'Tidak Diketahui';
     } catch (e, stacktrace) {
       print(e.toString());
       print(stacktrace.toString());
@@ -41,7 +41,7 @@ class SholatpageRepositories {
 
     //  ambil data kode kota dari http
     try {
-      cityCode = await sholatpageProvider.getCityCode(city, http.Client());
+      cityCode = await sholatpageProvider.getCityCode(city);
     } catch (e, stacktrace) {
       print(e.toString());
       print(stacktrace.toString());
@@ -51,7 +51,7 @@ class SholatpageRepositories {
     //  ambil data waktu sholat dari http
     try {
       getSholatTimeOutput = await sholatpageProvider.getSholatTimes(
-          cityCode, date, http.Client());
+          cityCode, date);
     } catch (e, stacktrace) {
       print(e.toString());
       print(stacktrace.toString());

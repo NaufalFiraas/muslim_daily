@@ -37,7 +37,7 @@ class SholatpageProvider {
     try {
       List<Placemark> placemark =
           await placemarkFromCoordinates(latitude, longitude);
-      return placemark[0].subLocality;
+      return placemark[0].subAdministrativeArea;
     } catch (e, stackTrace) {
       print(e.toString());
       print(stackTrace.toString());
@@ -46,14 +46,40 @@ class SholatpageProvider {
   }
 
   Future<String> getCityCode(String city, [http.Client? optionalClient]) async {
+    String onlyCity = city.split(' ').last.toLowerCase();
     http.Client client = optionalClient ?? http.Client();
-    Uri url = Uri.parse('https://api.myquran.com/v1/sholat/kota/cari/$city');
+    Uri url =
+        Uri.parse('https://api.myquran.com/v1/sholat/kota/cari/$onlyCity');
     http.Response response = await client.get(url);
     if (response.statusCode >= 400) {
       throw Exception('Gagal mengambil info kode kota');
     }
-    String cityCode = json.decode(response.body)['data'][0]['id'];
-    return cityCode;
+    List<dynamic> responseData =
+        json.decode(response.body)['data'] as List<dynamic>;
+    Map<String, dynamic> selectedMap = {};
+
+    //  Telusuri data (Map<String, dynamic>)
+    for (Map<String, dynamic> element in responseData) {
+      //  Split value dari key 'lokasi'
+      String lokasi = element['lokasi'] as String;
+      List<String> splittedLokasi = lokasi.split(' ');
+      //  Jika panjang setelah di split > 1
+      if (splittedLokasi.length > 1) {
+        if (splittedLokasi[1].toLowerCase() == onlyCity) {
+          selectedMap = element;
+          break;
+        }
+      }
+      // Jika panjang setelah di split < 1
+      else {
+        if (splittedLokasi[0].toLowerCase() == onlyCity) {
+          selectedMap = element;
+          break;
+        }
+      }
+    }
+
+    return selectedMap['id'];
   }
 
   Future<Map<String, dynamic>> getSholatTimes(String cityCode, DateTime date,

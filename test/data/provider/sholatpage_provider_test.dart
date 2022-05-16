@@ -22,9 +22,9 @@ void main() {
     time = DateTime.now();
     fakeClient = HttpMock();
     sholatpageProvider = SholatpageProvider();
-    city = 'Malang';
+    city = 'Kota Malang';
     cityCodeUrl =
-        Uri.parse('https://api.myquran.com/v1/sholat/kota/cari/$city');
+        Uri.parse('https://api.myquran.com/v1/sholat/kota/cari/malang');
     dummyCityCode = '1609';
     sholatTimeUrl = Uri.parse(
         'https://api.myquran.com/v1/sholat/jadwal/$dummyCityCode/${time.year}/${time.month}/${time.day}');

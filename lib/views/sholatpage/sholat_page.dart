@@ -69,8 +69,8 @@ class _SholatPageState extends State<SholatPage> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
-                            Text('Terjadi Kesalahan!'),
-                            Text('Gagal mengambil data waktu sholat'),
+                            Text('Gagal Mengambil Data Waktu Sholat'),
+                            Text('Periksa koneksi internet dan setting gps anda, lalu restart aplikasi'),
                           ],
                         ),
                       )

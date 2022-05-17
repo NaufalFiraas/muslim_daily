@@ -46,7 +46,7 @@ class SholatpageProvider {
   }
 
   Future<String> getCityCode(String city, [http.Client? optionalClient]) async {
-    String onlyCity = city.split(' ').last.toLowerCase();
+    String onlyCity = city.split(' ')[1].toLowerCase();
     http.Client client = optionalClient ?? http.Client();
     Uri url =
         Uri.parse('https://api.myquran.com/v1/sholat/kota/cari/$onlyCity');

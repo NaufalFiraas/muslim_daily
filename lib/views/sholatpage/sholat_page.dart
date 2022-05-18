@@ -31,8 +31,7 @@ class _SholatPageState extends State<SholatPage> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Builder(builder: (context) {
-          AddSholatTimeBloc sholatTimeBloc =
-              context.watch<AddSholatTimeBloc>();
+          AddSholatTimeBloc sholatTimeBloc = context.watch<AddSholatTimeBloc>();
 
           if (sholatTimeBloc.state is AddSholatTimeLoading) {
             return const Center(
@@ -69,35 +68,23 @@ class _SholatPageState extends State<SholatPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 32,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: const Color(0x2000C537),
-                          boxShadow: [SholatUtilities.sholatBoxShadow],
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              '01 : 10 : 35',
-                              style: SholatUtilities.textStyling(size: 22),
+                      Column(
+                        children: [
+                          Text(
+                            sholatTimeSuccess.sholatpageModel.city,
+                            style: SholatUtilities.textStyling(
+                              size: 22,
+                              color: const Color(0xFF00C537),
                             ),
-                            const SizedBox(
-                              height: 7,
-                            ),
-                            Text(
-                              'Menjelang Sholat Maghrib',
-                              style: SholatUtilities.textStyling(
-                                size: 16,
-                                color: const Color(0xFF727272),
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            sholatTimeSuccess.sholatpageModel.date,
+                            style: SholatUtilities.textStyling(size: 18),
+                          ),
+                        ],
                       ),
                       GestureDetector(
                         onTap: () {
@@ -122,7 +109,7 @@ class _SholatPageState extends State<SholatPage> {
                         child: Container(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 15,
-                            vertical: 32,
+                            vertical: 20,
                           ),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
@@ -149,23 +136,6 @@ class _SholatPageState extends State<SholatPage> {
                         ),
                       ),
                     ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    sholatTimeSuccess.sholatpageModel.city,
-                    style: SholatUtilities.textStyling(
-                      size: 22,
-                      color: const Color(0xFF00C537),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    sholatTimeSuccess.sholatpageModel.date,
-                    style: SholatUtilities.textStyling(size: 18),
                   ),
                   const SizedBox(
                     height: 20,

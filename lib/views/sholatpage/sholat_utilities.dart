@@ -10,11 +10,14 @@ class SholatUtilities {
       sholatModel.sholatTime.length,
       (index) {
         return Container(
-          padding: const EdgeInsets.all(15),
+          padding: prays[index] != 'Imsak' && prays[index] != 'Syuruk'
+              ? const EdgeInsets.fromLTRB(15, 3, 15, 3)
+              : const EdgeInsets.all(15),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.vertical(
               top: Radius.circular(index == 0 ? 15 : 0),
-              bottom: Radius.circular(index == sholatModel.sholatTime.length - 1 ? 15 : 0),
+              bottom: Radius.circular(
+                  index == sholatModel.sholatTime.length - 1 ? 15 : 0),
             ),
             color: index % 2 != 0 ? Colors.white : Colors.transparent,
           ),
@@ -29,13 +32,26 @@ class SholatUtilities {
                   fontFamily: 'Roboto',
                 ),
               ),
-              Text(
-                times[index],
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'Roboto',
-                ),
+              Row(
+                children: [
+                  (prays[index] != 'Imsak' && prays[index] != 'Syuruk')
+                      ? IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.volume_up_rounded),
+                        )
+                      : const SizedBox(),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    times[index],
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: 'Roboto',
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

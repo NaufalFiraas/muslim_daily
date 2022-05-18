@@ -37,7 +37,7 @@ class SholatUtilities {
                   (prays[index] != 'Imsak' && prays[index] != 'Syuruk')
                       ? IconButton(
                           onPressed: () {},
-                          icon: const Icon(Icons.settings_voice),
+                          icon: const Icon(Icons.volume_up_rounded),
                         )
                       : const SizedBox(),
                   const SizedBox(

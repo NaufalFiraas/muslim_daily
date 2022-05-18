@@ -109,7 +109,7 @@ class _SholatPageState extends State<SholatPage> {
                         child: Container(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 15,
-                            vertical: 32,
+                            vertical: 20,
                           ),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),

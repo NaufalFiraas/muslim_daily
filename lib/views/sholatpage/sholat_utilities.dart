@@ -14,7 +14,8 @@ class SholatUtilities {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.vertical(
               top: Radius.circular(index == 0 ? 15 : 0),
-              bottom: Radius.circular(index == sholatModel.sholatTime.length - 1 ? 15 : 0),
+              bottom: Radius.circular(
+                  index == sholatModel.sholatTime.length - 1 ? 15 : 0),
             ),
             color: index % 2 != 0 ? Colors.white : Colors.transparent,
           ),
@@ -29,13 +30,26 @@ class SholatUtilities {
                   fontFamily: 'Roboto',
                 ),
               ),
-              Text(
-                times[index],
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'Roboto',
-                ),
+              Row(
+                children: [
+                  (prays[index] != 'Imsak' && prays[index] != 'Syuruk')
+                      ? IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.settings_voice),
+                        )
+                      : const SizedBox(),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    times[index],
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: 'Roboto',
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

@@ -62,10 +62,6 @@ class _SholatPageState extends State<SholatPage> {
               padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
               child: Column(
                 children: [
-                  // const SizedBox(
-                  //   height: 10,
-                  // ),
-
                   const SizedBox(
                     height: 10,
                   ),

@@ -21,7 +21,7 @@ class _TemplatePageState extends State<TemplatePage> {
   int index = 0;
 
   final List<String> titles = [
-    'Sholat',
+    'Jadwal Sholat',
     "Qur'an",
   ];
 

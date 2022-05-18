@@ -10,7 +10,9 @@ class SholatUtilities {
       sholatModel.sholatTime.length,
       (index) {
         return Container(
-          padding: const EdgeInsets.all(15),
+          padding: prays[index] != 'Imsak' && prays[index] != 'Syuruk'
+              ? const EdgeInsets.fromLTRB(15, 3, 15, 3)
+              : const EdgeInsets.all(15),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.vertical(
               top: Radius.circular(index == 0 ? 15 : 0),

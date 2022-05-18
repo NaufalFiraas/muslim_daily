@@ -45,13 +45,31 @@ class _SholatPageState extends State<SholatPage> {
             );
           } else if (sholatTimeBloc.state is AddSholatTimeFailed) {
             return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text('Gagal Mengambil Data Waktu Sholat'),
-                  Text(
-                      'Periksa koneksi internet dan setting gps anda, lalu restart aplikasi'),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Gagal Mengambil Data Waktu Sholat',
+                      style: SholatUtilities.textStyling(
+                        size: 18,
+                        color: const Color(0xFF00C537),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      'Periksa koneksi internet dan setting gps anda, lalu restart aplikasi',
+                      style: SholatUtilities.textStyling(
+                        size: 16,
+                        color: Colors.black54,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
               ),
             );
           } else {

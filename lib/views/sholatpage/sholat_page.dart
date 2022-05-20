@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:muslim_daily/blocs/sholatpage_blocs/add_sholat_time/add_sholat_time_bloc.dart';
 import 'package:muslim_daily/data/providers/sholatpage_providers.dart';
 import 'package:muslim_daily/data/repositories/sholatpage_repositories.dart';
+import 'package:muslim_daily/views/sholatpage/pray_containers.dart';
 import 'package:muslim_daily/views/sholatpage/sholat_utilities.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -166,8 +167,15 @@ class _SholatPageState extends State<SholatPage> {
                         color: const Color(0x2000C537),
                       ),
                       child: Column(
-                        children: SholatUtilities.buildPraysContainers(
-                            sholatTimeSuccess.sholatpageModel, context),
+                        children: List.generate(
+                          sholatTimeSuccess.sholatpageModel.sholatTime.length,
+                          (index) => PrayContainers(
+                            sholatTimeSuccess.sholatpageModel.sholatTime,
+                            index,
+                          ),
+                        ),
+                        // children: SholatUtilities.buildPraysContainers(
+                        //     sholatTimeSuccess.sholatpageModel, context),
                       ),
                     ),
                   ],

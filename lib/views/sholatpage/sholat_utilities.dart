@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:muslim_daily/blocs/sholatpage_blocs/reminder_icon/reminder_icon_cubit.dart';
 import 'package:muslim_daily/data/models/sholatpage_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SholatUtilities {
-  static List<Container> buildPraysContainers(SholatpageModel sholatModel) {
+  static List<Container> buildPraysContainers(
+      SholatpageModel sholatModel, BuildContext context) {
     List<String> prays = sholatModel.sholatTime.keys.toList();
     List<dynamic> times = sholatModel.sholatTime.values.toList();
 
@@ -21,39 +24,53 @@ class SholatUtilities {
             ),
             color: index % 2 != 0 ? Colors.white : Colors.transparent,
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                prays[index],
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'Roboto',
+          child: BlocProvider(
+            create: (context) => ReminderIconCubit(),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  prays[index],
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Roboto',
+                  ),
                 ),
-              ),
-              Row(
-                children: [
-                  (prays[index] != 'Imsak' && prays[index] != 'Syuruk')
-                      ? IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.volume_up_rounded),
-                        )
-                      : const SizedBox(),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    times[index],
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: 'Roboto',
+                Row(
+                  children: [
+                    (prays[index] != 'Imsak' && prays[index] != 'Syuruk')
+                        ? Builder(builder: (context) {
+                            ReminderIconCubit reminderCubit =
+                                context.watch<ReminderIconCubit>();
+                            return IconButton(
+                              onPressed: () {
+                                reminderCubit.setReminder(
+                                    !reminderCubit.state.isReminderOn);
+                              },
+                              icon: Icon(
+                                reminderCubit.state.isReminderOn
+                                    ? Icons.volume_up
+                                    : Icons.volume_off,
+                              ),
+                            );
+                          })
+                        : const SizedBox(),
+                    const SizedBox(
+                      width: 10,
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    Text(
+                      times[index],
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: 'Roboto',
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         );
       },

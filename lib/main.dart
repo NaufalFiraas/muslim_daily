@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:muslim_daily/views/templatepage/template_page.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  tz.initializeTimeZones();
   final HydratedStorage storage = await HydratedStorage.build(
     storageDirectory: await getApplicationDocumentsDirectory(),
   );

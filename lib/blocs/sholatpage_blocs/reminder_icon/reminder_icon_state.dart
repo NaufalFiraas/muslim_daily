@@ -5,6 +5,12 @@ class ReminderIconState extends Equatable {
 
   const ReminderIconState(this.isReminderOn);
 
+  Map<String, dynamic> toMap() {
+    return {
+      'isReminderOn': isReminderOn,
+    };
+  }
+
   @override
   List<Object?> get props => [isReminderOn];
 }

@@ -166,7 +166,7 @@ class _SholatPageState extends State<SholatPage> {
                     ),
                     child: Column(
                       children: SholatUtilities.buildPraysContainers(
-                          sholatTimeSuccess.sholatpageModel),
+                          sholatTimeSuccess.sholatpageModel, context),
                     ),
                   ),
                 ],

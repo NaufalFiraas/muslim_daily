@@ -14,7 +14,7 @@ class SholatUtilities {
       (index) {
         return Container(
           padding: prays[index] != 'Imsak' && prays[index] != 'Syuruk'
-              ? const EdgeInsets.fromLTRB(15, 3, 15, 3)
+              ? const EdgeInsets.fromLTRB(15, 2, 15, 2)
               : const EdgeInsets.all(15),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.vertical(
@@ -32,7 +32,7 @@ class SholatUtilities {
                 Text(
                   prays[index],
                   style: const TextStyle(
-                    fontSize: 20,
+                    fontSize: 18,
                     fontWeight: FontWeight.w500,
                     fontFamily: 'Roboto',
                   ),
@@ -62,7 +62,7 @@ class SholatUtilities {
                     Text(
                       times[index],
                       style: const TextStyle(
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.w500,
                         fontFamily: 'Roboto',
                       ),

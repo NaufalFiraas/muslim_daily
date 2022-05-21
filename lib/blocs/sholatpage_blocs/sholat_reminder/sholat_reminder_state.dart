@@ -1,6 +1,6 @@
 part of 'sholat_reminder_bloc.dart';
 
-abstract class SholatReminderState extends Equatable {
+class SholatReminderState extends Equatable {
   const SholatReminderState();
 }
 

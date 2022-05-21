@@ -21,12 +21,3 @@ class SholatReminderCancelFromView extends SholatReminderEvent {
   @override
   List<Object?> get props => [id];
 }
-
-class SholatReminderFromRepo extends SholatReminderEvent {
-  final String sholatName;
-
-  const SholatReminderFromRepo(this.sholatName);
-
-  @override
-  List<Object?> get props => [sholatName];
-}

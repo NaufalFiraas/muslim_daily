@@ -15,7 +15,6 @@ class SholatReminderBloc
 
   SholatReminderBloc(this.repo) : super(SholatReminderOff()) {
     on<SholatReminderSetFromView>((event, emit) => _setFromView(event, emit));
-    on<SholatReminderFromRepo>((event, emit) => _setFromRepo(event, emit));
     on<SholatReminderCancelFromView>(
         (event, emit) => _cancelReminder(event, emit));
   }
@@ -23,11 +22,6 @@ class SholatReminderBloc
   void _setFromView(
       SholatReminderSetFromView event, Emitter<SholatReminderState> emit) {
     repo.showScheduledNotification(event.reminderModel);
-  }
-
-  void _setFromRepo(
-      SholatReminderFromRepo event, Emitter<SholatReminderState> emit) {
-    emit(SholatReminderOn(event.sholatName));
   }
 
   void _cancelReminder(

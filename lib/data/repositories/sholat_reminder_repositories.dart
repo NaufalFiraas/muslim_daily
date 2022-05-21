@@ -48,6 +48,7 @@ class SholatReminderRepositories {
           UILocalNotificationDateInterpretation.absoluteTime,
       androidAllowWhileIdle: true,
       matchDateTimeComponents: DateTimeComponents.time,
+      payload: reminderModel.payload,
     );
   }
 

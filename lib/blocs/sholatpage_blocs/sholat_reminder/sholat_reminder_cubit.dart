@@ -28,4 +28,10 @@ class SholatReminderCubit extends Cubit<SholatReminderState> {
   void onNotif(String? payload) {
     emit(SholatReminderOnNotif(payload));
   }
+
+  @override
+  Future<void> close() {
+    repoSubscription.cancel();
+    return super.close();
+  }
 }

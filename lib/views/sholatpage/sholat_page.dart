@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:muslim_daily/blocs/sholatpage_blocs/add_sholat_time/add_sholat_time_bloc.dart';
 import 'package:muslim_daily/data/providers/sholatpage_providers.dart';
+import 'package:muslim_daily/data/repositories/sholat_reminder_repositories.dart';
 import 'package:muslim_daily/data/repositories/sholatpage_repositories.dart';
 import 'package:muslim_daily/views/sholatpage/pray_containers.dart';
 import 'package:muslim_daily/views/sholatpage/sholat_utilities.dart';
@@ -17,6 +19,7 @@ class _SholatPageState extends State<SholatPage> {
   late final SholatpageProvider sholatpageProvider;
   late final SholatpageRepositories sholatpageRepo;
   late final DateTime date;
+  late final SholatReminderRepositories sholatReminderRepo;
 
   @override
   void initState() {
@@ -24,6 +27,9 @@ class _SholatPageState extends State<SholatPage> {
     date = DateTime.now();
     sholatpageProvider = SholatpageProvider();
     sholatpageRepo = SholatpageRepositories(sholatpageProvider, date);
+    sholatReminderRepo =
+        SholatReminderRepositories(FlutterLocalNotificationsPlugin());
+    sholatReminderRepo.init();
   }
 
   @override
@@ -172,6 +178,7 @@ class _SholatPageState extends State<SholatPage> {
                           (index) => PrayContainers(
                             sholatTimeSuccess.sholatpageModel.sholatTime,
                             index,
+                            sholatReminderRepo,
                           ),
                         ),
                         // children: SholatUtilities.buildPraysContainers(

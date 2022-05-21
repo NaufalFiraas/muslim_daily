@@ -1,19 +1,19 @@
-part of 'sholat_reminder_bloc.dart';
+part of 'sholat_reminder_cubit.dart';
 
 abstract class SholatReminderState extends Equatable {
   const SholatReminderState();
 }
 
-class SholatReminderOff extends SholatReminderState {
+class SholatReminderInitial extends SholatReminderState {
   @override
   List<Object> get props => [];
 }
 
-class SholatReminderOn extends SholatReminderState {
-  final String sholatName;
+class SholatReminderOnNotif extends SholatReminderState {
+  final String? payload;
 
-  const SholatReminderOn(this.sholatName);
+  const SholatReminderOnNotif(this.payload);
 
   @override
-  List<Object?> get props => [sholatName];
+  List<Object?> get props => [payload];
 }

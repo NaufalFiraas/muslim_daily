@@ -1,13 +1,14 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:muslim_daily/blocs/sholatpage_blocs/sholat_reminder/sholat_reminder_bloc.dart';
 import 'package:muslim_daily/data/models/sholat_reminder_model.dart';
 import 'package:timezone/timezone.dart' as tz;
+import 'package:rxdart/rxdart.dart';
 
 class SholatReminderRepositories {
   final FlutterLocalNotificationsPlugin notification;
-  final SholatReminderBloc reminderBloc;
 
-  const SholatReminderRepositories(this.notification, this.reminderBloc);
+  SholatReminderRepositories(this.notification);
+
+  BehaviorSubject onNotification = BehaviorSubject<String?>();
 
   Future<void> init() async {
     AndroidInitializationSettings androidSetting =
@@ -20,7 +21,7 @@ class SholatReminderRepositories {
     );
 
     await notification.initialize(settings, onSelectNotification: (payload) {
-      reminderBloc.add(SholatReminderFromRepo(payload!));
+      onNotification.add(payload);
     });
   }
 
@@ -47,6 +48,7 @@ class SholatReminderRepositories {
           UILocalNotificationDateInterpretation.absoluteTime,
       androidAllowWhileIdle: true,
       matchDateTimeComponents: DateTimeComponents.time,
+      payload: reminderModel.payload,
     );
   }
 

@@ -100,6 +100,8 @@ class _PrayContainersState extends State<PrayContainers> {
 
                           return IconButton(
                             onPressed: () {
+                              reminderCubit.setReminder(
+                                  !reminderCubit.state.isReminderOn);
                               _notifMethod(
                                 reminderCubit,
                                 sholatReminder,
@@ -137,7 +139,6 @@ class _PrayContainersState extends State<PrayContainers> {
 
   void _notifMethod(ReminderIconCubit reminderCubit,
       SholatReminderCubit sholatReminder, String pray, dynamic time) {
-    reminderCubit.setReminder(!reminderCubit.state.isReminderOn);
     if (reminderCubit.state.isReminderOn) {
       time as String;
       List<String> splitTime = time.split(':');
@@ -152,6 +153,8 @@ class _PrayContainersState extends State<PrayContainers> {
           minute: int.parse(splitTime[1]),
         ),
       );
+    } else {
+      sholatReminder.cancelReminder(i);
     }
   }
 }

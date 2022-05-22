@@ -1,7 +1,7 @@
 part of 'reminder_icon_cubit.dart';
 
 class ReminderIconState extends Equatable {
-  final bool isReminderOn;
+  final List<bool> isReminderOn;
 
   const ReminderIconState(this.isReminderOn);
 

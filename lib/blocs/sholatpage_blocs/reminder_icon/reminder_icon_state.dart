@@ -14,3 +14,11 @@ class ReminderIconState extends Equatable {
   @override
   List<Object?> get props => [isReminderOn];
 }
+
+class ReminderIconOn extends ReminderIconState {
+  const ReminderIconOn(List<bool> isReminderOn) : super(isReminderOn);
+}
+
+class ReminderIconOff extends ReminderIconState {
+  const ReminderIconOff(List<bool> isReminderOn) : super(isReminderOn);
+}

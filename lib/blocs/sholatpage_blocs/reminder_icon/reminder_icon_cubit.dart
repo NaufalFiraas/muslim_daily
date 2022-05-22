@@ -8,11 +8,13 @@ class ReminderIconCubit extends HydratedCubit<ReminderIconState> {
   List<bool> reminderValues;
 
   ReminderIconCubit(this.reminderValues)
-      : super(ReminderIconState(reminderValues));
+      : super(ReminderIconOff(reminderValues));
 
   void setReminder(int index, bool value) {
     state.isReminderOn[index] = value;
-    emit(ReminderIconState(state.isReminderOn));
+    value
+        ? emit(ReminderIconOff(state.isReminderOn))
+        : emit(ReminderIconOn(state.isReminderOn));
   }
 
   @override

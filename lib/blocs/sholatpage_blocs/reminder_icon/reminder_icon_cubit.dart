@@ -5,10 +5,14 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 part 'reminder_icon_state.dart';
 
 class ReminderIconCubit extends HydratedCubit<ReminderIconState> {
-  ReminderIconCubit() : super(const ReminderIconState(false));
+  List<bool> reminderValues;
 
-  void setReminder(bool value) {
-    emit(ReminderIconState(value));
+  ReminderIconCubit(this.reminderValues)
+      : super(ReminderIconState(reminderValues));
+
+  void setReminder(int index, bool value) {
+    state.isReminderOn[index] = value;
+    emit(ReminderIconState(state.isReminderOn));
   }
 
   @override

@@ -52,7 +52,9 @@ class _PrayContainersState extends State<PrayContainers> {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => ReminderIconCubit(),
+            create: (context) => ReminderIconCubit(
+              List.generate(widget.sholatTime.length, (index) => false),
+            ),
           ),
           BlocProvider(
             create: (context) => SholatReminderCubit(sholatReminderRepo),
@@ -87,7 +89,7 @@ class _PrayContainersState extends State<PrayContainers> {
                               context.read<SholatReminderCubit>();
                           ReminderIconCubit reminderCubit =
                               context.watch<ReminderIconCubit>();
-                          if (reminderCubit.state.isReminderOn) {
+                          if (reminderCubit.state.isReminderOn[i]) {
                             _notifMethod(
                               reminderCubit,
                               sholatReminder,
@@ -99,7 +101,7 @@ class _PrayContainersState extends State<PrayContainers> {
                           return IconButton(
                             onPressed: () {
                               reminderCubit.setReminder(
-                                  !reminderCubit.state.isReminderOn);
+                                  i, !reminderCubit.state.isReminderOn[i]);
                               _notifMethod(
                                 reminderCubit,
                                 sholatReminder,
@@ -108,7 +110,7 @@ class _PrayContainersState extends State<PrayContainers> {
                               );
                             },
                             icon: Icon(
-                              reminderCubit.state.isReminderOn
+                              reminderCubit.state.isReminderOn[i]
                                   ? Icons.volume_up
                                   : Icons.volume_off,
                             ),
@@ -134,7 +136,7 @@ class _PrayContainersState extends State<PrayContainers> {
 
   void _notifMethod(ReminderIconCubit reminderCubit,
       SholatReminderCubit sholatReminder, String pray, dynamic time) {
-    if (reminderCubit.state.isReminderOn) {
+    if (reminderCubit.state.isReminderOn[i]) {
       time as String;
       List<String> splitTime = time.split(':');
 

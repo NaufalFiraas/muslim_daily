@@ -4,47 +4,38 @@ import 'package:muslim_daily/blocs/sholatpage_blocs/reminder_icon/reminder_icon_
 
 void main() {
   late ReminderIconCubit reminderCubit;
+  late List<bool> isReminderOn;
 
   setUp(() {
-    reminderCubit = ReminderIconCubit();
+    isReminderOn = List.generate(7, (index) => false);
+    reminderCubit = ReminderIconCubit(isReminderOn);
   });
 
   test('Initial state: ReminderIconState(false)', () {
-    expect(reminderCubit.state, const ReminderIconState(false));
+    expect(reminderCubit.state, ReminderIconState(isReminderOn));
   });
 
   blocTest<ReminderIconCubit, ReminderIconState>(
-    'Set reminder: ReminderIconState(true)',
-    build: () => ReminderIconCubit(),
+    'Set reminder to true',
+    build: () => ReminderIconCubit(isReminderOn),
     act: (cubit) {
-      cubit.setReminder(true);
+      cubit.setReminder(1, true);
     },
     expect: () => <ReminderIconState>[
-      const ReminderIconState(true),
+      const ReminderIconState([false, true, false, false, false, false, false]),
     ],
   );
 
   blocTest<ReminderIconCubit, ReminderIconState>(
-    'Cancel reminder: ReminderIconState(false)',
-    build: () => ReminderIconCubit(),
+    'Cancel reminder to true then false',
+    build: () => ReminderIconCubit(isReminderOn),
     act: (cubit) {
-      cubit.setReminder(false);
+      cubit.setReminder(2, true);
+      cubit.setReminder(2, false);
     },
     expect: () => <ReminderIconState>[
-      const ReminderIconState(false),
-    ],
-  );
-
-  blocTest<ReminderIconCubit, ReminderIconState>(
-    'Set, cancel reminder: ReminderIconState(true), ReminderIconState(false)',
-    build: () => ReminderIconCubit(),
-    act: (cubit) {
-      cubit.setReminder(true);
-      cubit.setReminder(false);
-    },
-    expect: () => <ReminderIconState>[
-      const ReminderIconState(true),
-      const ReminderIconState(false),
+      const ReminderIconState([false, false, true, false, false, false, false]),
+      const ReminderIconState([false, false, false, false, false, false, false])
     ],
   );
 }

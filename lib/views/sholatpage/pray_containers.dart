@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:muslim_daily/blocs/sholatpage_blocs/sholat_reminder/sholat_reminder_cubit.dart';
 import 'package:muslim_daily/data/models/sholat_reminder_model.dart';
 import 'package:muslim_daily/views/quranpage/quran_page.dart';
+import 'package:muslim_daily/views/sholatpage/sholat_utilities.dart';
 
 import '../../data/repositories/sholat_reminder_repositories.dart';
 
@@ -75,11 +76,8 @@ class _PrayContainersState extends State<PrayContainers> {
             children: [
               Text(
                 prays[i],
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'Roboto',
-                ),
+                style: SholatUtilities.textStyling(
+                    size: MediaQuery.of(context).size.width * 0.06),
               ),
               Row(
                 children: [
@@ -122,11 +120,8 @@ class _PrayContainersState extends State<PrayContainers> {
                   ),
                   Text(
                     times[i],
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: 'Roboto',
-                    ),
+                    style: SholatUtilities.textStyling(
+                        size: MediaQuery.of(context).size.width * 0.06),
                   ),
                 ],
               ),

@@ -99,7 +99,7 @@ class _SholatPageState extends State<SholatPage> {
                             Text(
                               sholatTimeSuccess.sholatpageModel.city,
                               style: SholatUtilities.textStyling(
-                                size: 22,
+                                size: MediaQuery.of(context).size.width * 0.06,
                                 color: const Color(0xFF00C537),
                               ),
                             ),
@@ -108,7 +108,7 @@ class _SholatPageState extends State<SholatPage> {
                             ),
                             Text(
                               sholatTimeSuccess.sholatpageModel.date,
-                              style: SholatUtilities.textStyling(size: 18),
+                              style: SholatUtilities.textStyling(size: MediaQuery.of(context).size.width * 0.05),
                             ),
                           ],
                         ),
@@ -153,7 +153,7 @@ class _SholatPageState extends State<SholatPage> {
                                 Text(
                                   'Arah Kiblat',
                                   style: SholatUtilities.textStyling(
-                                    size: 16,
+                                    size: MediaQuery.of(context).size.width * 0.045,
                                     color: const Color(0xFF727272),
                                   ),
                                 ),
@@ -163,8 +163,8 @@ class _SholatPageState extends State<SholatPage> {
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.06,
                     ),
                     Container(
                       decoration: BoxDecoration(

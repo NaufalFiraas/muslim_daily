@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 
 class ArahKiblat extends Equatable {
-  final int dynamicDirection;
-  final int kiblatDirection;
+  final double dynamicDirection;
+  final double kiblatDirection;
 
   const ArahKiblat(this.dynamicDirection, this.kiblatDirection);
 

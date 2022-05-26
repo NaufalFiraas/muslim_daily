@@ -111,4 +111,18 @@ class SholatpageProvider {
 
     return sholatTimes;
   }
+
+  Future<double> getKiblatDirection(String location,
+      [http.Client? optionalClient]) async {
+    http.Client client = optionalClient ?? http.Client();
+    String onlyCity = location.split(' ')[1].toLowerCase();
+    Uri url = Uri.parse('https://time.siswadi.com/qibla/?address=malang');
+    http.Response response = await client.get(url);
+    if (response.statusCode >= 400) {
+      throw Exception('Gagal mengambil data lokasi kiblat');
+    }
+    Map<String, dynamic> data = json.decode(response.body)['data'];
+    double kabahDirection = data['derajat'] as double;
+    return kabahDirection;
+  }
 }

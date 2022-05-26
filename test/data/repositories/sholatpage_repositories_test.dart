@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:muslim_daily/data/models/arah_kiblat.dart';
 import 'package:muslim_daily/data/models/sholatpage_model.dart';
 import 'package:muslim_daily/data/providers/sholatpage_providers.dart';
 import 'package:muslim_daily/data/repositories/sholatpage_repositories.dart';
@@ -84,6 +85,47 @@ void main() {
             },
           ),
         ),
+      );
+    });
+  });
+
+  group('getKiblatDirection tests:', () {
+    test('Failed determineLocation test:', () async {
+      when(() => fakeProvider.determinePosition()).thenThrow(Exception());
+      expect(await sholatpageRepositories.getKiblatDirection(), equals(null));
+    });
+
+    test('Failed getPlacemarks test:', () async {
+      when(() => fakeProvider.getPlacemarks(0, 0)).thenThrow(Exception());
+      expect(await sholatpageRepositories.getKiblatDirection(), equals(null));
+    });
+
+    test('Failed getKiblatDirection provider test:', () async {
+      when(() => fakeProvider.getKiblatDirection('Kota Malang'))
+          .thenThrow(Exception());
+      expect(await sholatpageRepositories.getKiblatDirection(), equals(null));
+    });
+
+    test('Success case:', () async {
+      when(() => fakeProvider.determinePosition()).thenAnswer(
+        (_) => Future.value(
+          {
+            'latitude': 0.5,
+            'longitude': 0.5,
+          },
+        ),
+      );
+      when(() => fakeProvider.getPlacemarks(0.5, 0.5)).thenAnswer(
+        (_) => Future.value('Kota Malang'),
+      );
+      when(() => fakeProvider.getKiblatDirection('Kota Malang')).thenAnswer(
+        (_) => Future.value(240.2),
+      );
+      ArahKiblat? arahKiblat =
+          await sholatpageRepositories.getKiblatDirection();
+      expect(
+        arahKiblat,
+        const ArahKiblat('Kota Malang', 240.2),
       );
     });
   });

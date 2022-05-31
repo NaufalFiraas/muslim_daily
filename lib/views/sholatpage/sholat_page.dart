@@ -4,6 +4,7 @@ import 'package:muslim_daily/blocs/sholatpage_blocs/add_sholat_time/add_sholat_t
 import 'package:muslim_daily/data/providers/sholatpage_providers.dart';
 import 'package:muslim_daily/data/repositories/sholat_reminder_repositories.dart';
 import 'package:muslim_daily/data/repositories/sholatpage_repositories.dart';
+import 'package:muslim_daily/views/sholatpage/kiblat_direction_page.dart';
 import 'package:muslim_daily/views/sholatpage/pray_containers.dart';
 import 'package:muslim_daily/views/sholatpage/sholat_utilities.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -108,29 +109,39 @@ class _SholatPageState extends State<SholatPage> {
                             ),
                             Text(
                               sholatTimeSuccess.sholatpageModel.date,
-                              style: SholatUtilities.textStyling(size: MediaQuery.of(context).size.width * 0.05),
+                              style: SholatUtilities.textStyling(
+                                  size:
+                                      MediaQuery.of(context).size.width * 0.05),
                             ),
                           ],
                         ),
                         GestureDetector(
                           onTap: () {
-                            showDialog(
-                                context: context,
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
                                 builder: (context) {
-                                  return AlertDialog(
-                                    title: const Text(
-                                      'Mohon Maaf',
-                                      style: TextStyle(
-                                        color: Color(0xFF00C537),
-                                      ),
-                                    ),
-                                    content: const Text(
-                                        'Fitur ini masih belum tersedia.. :('),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                  );
-                                });
+                                  return const KiblatDirectionPage();
+                                },
+                              ),
+                            );
+                            // showDialog(
+                            //     context: context,
+                            //     builder: (context) {
+                            //       return AlertDialog(
+                            //         title: const Text(
+                            //           'Mohon Maaf',
+                            //           style: TextStyle(
+                            //             color: Color(0xFF00C537),
+                            //           ),
+                            //         ),
+                            //         content: const Text(
+                            //             'Fitur ini masih belum tersedia.. :('),
+                            //         shape: RoundedRectangleBorder(
+                            //           borderRadius: BorderRadius.circular(15),
+                            //         ),
+                            //       );
+                            //     });
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(
@@ -153,7 +164,8 @@ class _SholatPageState extends State<SholatPage> {
                                 Text(
                                   'Arah Kiblat',
                                   style: SholatUtilities.textStyling(
-                                    size: MediaQuery.of(context).size.width * 0.045,
+                                    size: MediaQuery.of(context).size.width *
+                                        0.045,
                                     color: const Color(0xFF727272),
                                   ),
                                 ),

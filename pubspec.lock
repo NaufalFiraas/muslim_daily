@@ -84,7 +84,7 @@ packages:
       name: convert
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.1"
+    version: "3.0.2"
   coverage:
     dependency: transitive
     description:
@@ -119,7 +119,7 @@ packages:
       name: dbus
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.7.4"
+    version: "0.7.5"
   diff_match_patch:
     dependency: transitive
     description:
@@ -147,7 +147,7 @@ packages:
       name: ffi
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.1"
+    version: "2.0.0"
   file:
     dependency: transitive
     description:
@@ -170,9 +170,11 @@ packages:
   flutter_compass:
     dependency: "direct main"
     description:
-      name: flutter_compass
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: "8f753aefe76b08092c0e5bda93775ade8fe66016"
+      url: "https://github.com/hemanthrajv/flutter_compass.git"
+    source: git
     version: "0.7.0"
   flutter_lints:
     dependency: "direct dev"
@@ -435,7 +437,7 @@ packages:
       name: path_provider_linux
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.6"
+    version: "2.1.7"
   path_provider_macos:
     dependency: transitive
     description:
@@ -456,7 +458,7 @@ packages:
       name: path_provider_windows
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.6"
+    version: "2.1.0"
   petitparser:
     dependency: transitive
     description:
@@ -512,7 +514,7 @@ packages:
       name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.27.3"
+    version: "0.27.4"
   shelf:
     dependency: transitive
     description:
@@ -678,7 +680,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.6.1"
+    version: "2.7.0"
   xdg_directories:
     dependency: transitive
     description:
@@ -702,4 +704,4 @@ packages:
     version: "3.1.1"
 sdks:
   dart: ">=2.17.0 <3.0.0"
-  flutter: ">=2.8.1"
+  flutter: ">=3.0.0"

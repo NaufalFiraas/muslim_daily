@@ -89,6 +89,7 @@ class _PrayContainersState extends State<PrayContainers> {
                               context.read<SholatReminderCubit>();
                           ReminderIconCubit reminderCubit =
                               context.watch<ReminderIconCubit>();
+                          // Cek jika icon reminder sudah dalam posisi on
                           if (reminderCubit.state.isReminderOn[i]) {
                             _notifMethod(
                               reminderCubit,

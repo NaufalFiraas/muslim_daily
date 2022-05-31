@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'sholat_utilities.dart';
+import 'dart:math' as math;
 
 class KiblatDirectionPage extends StatelessWidget {
   const KiblatDirectionPage({Key? key}) : super(key: key);
@@ -24,32 +25,22 @@ class KiblatDirectionPage extends StatelessWidget {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            Container(
-              height: MediaQuery.of(context).size.width * 0.9,
-              width: MediaQuery.of(context).size.width * 0.9,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-              ),
-              child: Image.asset(
-                'assets/images/compass_outer.png',
-                fit: BoxFit.fill,
-              ),
+            Image.asset(
+              'assets/images/compass_outer.png',
+              // fit: BoxFit.fill,
+              width: 300,
+              height: 300,
             ),
             Stack(
               alignment: Alignment.center,
               children: [
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  height: MediaQuery.of(context).size.width * 0.6,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                  ),
-                  child: Transform.rotate(
-                    angle: 0,
-                    child: Image.asset(
-                      'assets/images/compass.png',
-                      fit: BoxFit.fill,
-                    ),
+                Transform.rotate(
+                  angle: math.pi * 0,
+                  child: Image.asset(
+                    'assets/images/compass.png',
+                    // fit: BoxFit.fill,
+                    width: 200,
+                    height: 200,
                   ),
                 ),
               ],

@@ -77,6 +77,7 @@ flutter:
     - assets/images/quran.png
     - assets/images/compass.png
     - assets/images/compass_outer.png
+    - assets/images/kiblat_direction.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

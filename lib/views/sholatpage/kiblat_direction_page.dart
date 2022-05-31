@@ -75,19 +75,27 @@ class KiblatDirectionPage extends StatelessWidget {
                   );
                 }
 
-                return Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Transform.rotate(
-                      angle: (direction * (math.pi / 180) * -1),
-                      child: Image.asset(
+                return Transform.rotate(
+                  angle: (direction * (math.pi / 180) * -1),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Image.asset(
                         'assets/images/compass.png',
                         // fit: BoxFit.fill,
                         width: 200,
                         height: 200,
                       ),
-                    ),
-                  ],
+                      Transform.rotate(
+                        angle: math.pi * 1/2,
+                        child: Image.asset(
+                          'assets/images/kiblat_direction.png',
+                          width: 200,
+                          height: 200,
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               },
             ),

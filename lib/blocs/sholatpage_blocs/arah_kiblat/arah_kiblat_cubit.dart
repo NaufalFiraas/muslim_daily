@@ -15,7 +15,8 @@ class ArahKiblatCubit extends Cubit<ArahKiblatState> {
     ArahKiblat? result = await repo.getKiblatDirection();
     if (result == null) {
       emit(const ArahKiblatError('Gagal mendapatkan arah kiblat'));
+    } else {
+      emit(ArahKiblatLoaded(result));
     }
-    emit(ArahKiblatLoaded(result!));
   }
 }

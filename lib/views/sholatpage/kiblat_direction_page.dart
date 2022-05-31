@@ -29,8 +29,8 @@ class KiblatDirectionPage extends StatelessWidget {
             Image.asset(
               'assets/images/compass_outer.png',
               // fit: BoxFit.fill,
-              width: 300,
-              height: 300,
+              width: MediaQuery.of(context).size.width * 0.9,
+              height: MediaQuery.of(context).size.width * 0.9,
             ),
             StreamBuilder<CompassEvent>(
               stream: FlutterCompass.events,
@@ -83,15 +83,15 @@ class KiblatDirectionPage extends StatelessWidget {
                       Image.asset(
                         'assets/images/compass.png',
                         // fit: BoxFit.fill,
-                        width: 200,
-                        height: 200,
+                        width: MediaQuery.of(context).size.width * 0.65,
+                        height: MediaQuery.of(context).size.width * 0.65,
                       ),
                       Transform.rotate(
-                        angle: math.pi * 1/2,
+                        angle: 294.2 * (math.pi / 180),
                         child: Image.asset(
                           'assets/images/kiblat_direction.png',
-                          width: 200,
-                          height: 200,
+                          width: MediaQuery.of(context).size.width * 0.65,
+                          height: MediaQuery.of(context).size.width * 0.65,
                         ),
                       ),
                     ],

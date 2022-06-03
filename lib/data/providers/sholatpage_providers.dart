@@ -38,7 +38,7 @@ class SholatpageProvider {
   Future<String?> getPlacemarks(double latitude, double longitude) async {
     try {
       List<Placemark> placemark =
-          await placemarkFromCoordinates(latitude, longitude);
+      await placemarkFromCoordinates(latitude, longitude);
       return placemark[0].subAdministrativeArea;
     } catch (e, stackTrace) {
       print(e.toString());
@@ -51,13 +51,13 @@ class SholatpageProvider {
     String onlyCity = city.split(' ')[1].toLowerCase();
     http.Client client = optionalClient ?? http.Client();
     Uri url =
-        Uri.parse('https://api.myquran.com/v1/sholat/kota/cari/$onlyCity');
+    Uri.parse('https://api.myquran.com/v1/sholat/kota/cari/$onlyCity');
     http.Response response = await client.get(url);
     if (response.statusCode >= 400) {
       throw Exception('Gagal mengambil info kode kota');
     }
     List<dynamic> responseData =
-        json.decode(response.body)['data'] as List<dynamic>;
+    json.decode(response.body)['data'] as List<dynamic>;
     Map<String, dynamic> selectedMap = {};
 
     //  Telusuri data (Map<String, dynamic>)
@@ -97,7 +97,7 @@ class SholatpageProvider {
       throw Exception('Gagal mengambil info waktu sholat');
     }
     Map<String, dynamic> responseDecoded =
-        json.decode(response.body)['data']['jadwal'];
+    json.decode(response.body)['data']['jadwal'];
     Map<String, dynamic> sholatTimes = {
       'tanggal': responseDecoded['tanggal'],
       'waktu': {
@@ -128,12 +128,14 @@ class SholatpageProvider {
     return kabahDirection;
   }
 
-  Future<void> saveIconReminderStatus(
-      SharedPreferences pref, int index, bool status) async {
+  Future<void> saveIconReminderStatus(int index, bool status,
+      [SharedPreferences? optionalPref]) async {
+    SharedPreferences pref = optionalPref ?? await SharedPreferences.getInstance();
     await pref.setBool('$index', status);
   }
 
-  Future<bool?> getIconReminderStatus(SharedPreferences pref, int index) async {
+  Future<bool?> getIconReminder(int index, [SharedPreferences? optionalPref]) async {
+    SharedPreferences pref = optionalPref ?? await SharedPreferences.getInstance();
     return pref.getBool('$index');
   }
 }

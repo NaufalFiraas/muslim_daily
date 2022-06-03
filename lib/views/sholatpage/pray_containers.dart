@@ -84,39 +84,12 @@ class _PrayContainersState extends State<PrayContainers> {
               Row(
                 children: [
                   (prays[i] != 'Imsak' && prays[i] != 'Syuruk')
-                      ? Builder(builder: (context) {
-                          SholatReminderCubit sholatReminder =
-                              context.read<SholatReminderCubit>();
-                          ReminderIconCubit reminderCubit =
-                              context.watch<ReminderIconCubit>();
-                          // Cek jika icon reminder sudah dalam posisi on
-                          if (reminderCubit.state.isReminderOn[i]) {
-                            _notifMethod(
-                              reminderCubit,
-                              sholatReminder,
-                              prays[i],
-                              times[i],
-                            );
-                          }
-
-                          return IconButton(
-                            onPressed: () {
-                              reminderCubit.setReminder(
-                                  i, !reminderCubit.state.isReminderOn[i]);
-                              _notifMethod(
-                                reminderCubit,
-                                sholatReminder,
-                                prays[i],
-                                times[i],
-                              );
-                            },
-                            icon: Icon(
-                              reminderCubit.state.isReminderOn[i]
-                                  ? Icons.volume_up
-                                  : Icons.volume_off,
-                            ),
-                          );
-                        })
+                      ? IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.volume_off,
+                          ),
+                        )
                       : const SizedBox(),
                   const SizedBox(
                     width: 10,

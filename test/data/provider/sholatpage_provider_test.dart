@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:http/http.dart' as http;
 import 'package:muslim_daily/data/providers/sholatpage_providers.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HttpMock extends Mock implements http.Client {}
 
@@ -169,6 +170,28 @@ void main() {
       );
       expect(sholatpageProvider.getKiblatDirection(city, fakeClient),
           throwsException);
+    });
+  });
+
+  group('Get Save Reminder Status test: ', () {
+    test('Saving case:', () async {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      expect(sholatpageProvider.saveIconReminderStatus(1, true, pref),
+          isA<Future<void>>());
+    });
+
+    test('Get null value case: ', () async {
+      SharedPreferences.setMockInitialValues({});
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      bool? result = await sholatpageProvider.getIconReminderStatus(1, pref);
+      expect(result, equals(null));
+    });
+
+    test('Get available value case: ', () async {
+      SharedPreferences.setMockInitialValues({'1': true});
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      bool? result = await sholatpageProvider.getIconReminderStatus(1, pref);
+      expect(result, equals(true));
     });
   });
 }

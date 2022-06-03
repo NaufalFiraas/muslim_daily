@@ -38,28 +38,26 @@ class _PrayContainersState extends State<PrayContainers> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: prays[i] != 'Imsak' && prays[i] != 'Syuruk'
-          ? const EdgeInsets.fromLTRB(15, 2, 15, 2)
-          : const EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(i == 0 ? 15 : 0),
-          bottom: Radius.circular(i == widget.sholatTime.length - 1 ? 15 : 0),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => ReminderIconCubit()..getStatusFromPref(i),
         ),
-        color: i % 2 != 0 ? Colors.white : Colors.transparent,
-      ),
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => ReminderIconCubit(
-              List.generate(widget.sholatTime.length, (index) => false),
-            ),
+        BlocProvider(
+          create: (context) => SholatReminderCubit(sholatReminderRepo),
+        ),
+      ],
+      child: Container(
+        padding: prays[i] != 'Imsak' && prays[i] != 'Syuruk'
+            ? const EdgeInsets.fromLTRB(15, 2, 15, 2)
+            : const EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(i == 0 ? 15 : 0),
+            bottom: Radius.circular(i == widget.sholatTime.length - 1 ? 15 : 0),
           ),
-          BlocProvider(
-            create: (context) => SholatReminderCubit(sholatReminderRepo),
-          ),
-        ],
+          color: i % 2 != 0 ? Colors.white : Colors.transparent,
+        ),
         child: BlocListener<SholatReminderCubit, SholatReminderState>(
           listener: (context, state) {
             if (state is SholatReminderOnNotif) {
@@ -84,12 +82,23 @@ class _PrayContainersState extends State<PrayContainers> {
               Row(
                 children: [
                   (prays[i] != 'Imsak' && prays[i] != 'Syuruk')
-                      ? IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.volume_off,
-                          ),
-                        )
+                      ? Builder(builder: (context) {
+                          ReminderIconCubit iconCubit = context
+                              .watch<ReminderIconCubit>();
+                          IconSholatReminderChange iconState = iconCubit.state as IconSholatReminderChange;
+
+                          return IconButton(
+                            onPressed: () {
+                              iconCubit.saveStatusToPref(i, !iconState.status);
+                              iconCubit.setIconReminderValue(!iconState.status);
+                            },
+                            icon: Icon(
+                              iconState.status
+                                  ? Icons.volume_up
+                                  : Icons.volume_off,
+                            ),
+                          );
+                        })
                       : const SizedBox(),
                   const SizedBox(
                     width: 10,
@@ -108,24 +117,24 @@ class _PrayContainersState extends State<PrayContainers> {
     );
   }
 
-  void _notifMethod(ReminderIconCubit reminderCubit,
-      SholatReminderCubit sholatReminder, String pray, dynamic time) {
-    if (reminderCubit.state.isReminderOn[i]) {
-      time as String;
-      List<String> splitTime = time.split(':');
-
-      sholatReminder.setReminder(
-        SholatReminderModel(
-          id: i,
-          title: pray,
-          body: 'Sholat $pray',
-          payload: 'Masuk Waktu $pray',
-          hour: int.parse(splitTime[0]),
-          minute: int.parse(splitTime[1]),
-        ),
-      );
-    } else {
-      sholatReminder.cancelReminder(i);
-    }
-  }
+  // void _notifMethod(ReminderIconCubit reminderCubit,
+  //     SholatReminderCubit sholatReminder, String pray, dynamic time) {
+  //   if (reminderCubit.state.isReminderOn[i]) {
+  //     time as String;
+  //     List<String> splitTime = time.split(':');
+  //
+  //     sholatReminder.setReminder(
+  //       SholatReminderModel(
+  //         id: i,
+  //         title: pray,
+  //         body: 'Sholat $pray',
+  //         payload: 'Masuk Waktu $pray',
+  //         hour: int.parse(splitTime[0]),
+  //         minute: int.parse(splitTime[1]),
+  //       ),
+  //     );
+  //   } else {
+  //     sholatReminder.cancelReminder(i);
+  //   }
+  // }
 }

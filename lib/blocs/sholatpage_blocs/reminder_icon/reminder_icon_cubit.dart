@@ -23,6 +23,6 @@ class ReminderIconCubit extends Cubit<IconSholatReminderState> {
 
   void getStatusFromPref(int index) async {
     bool? result = await repo.getIconStatusFromProvider(index);
-    emit(IconSholatReminderChange(result));
+    emit(IconSholatReminderChange(result ?? false));
   }
 }

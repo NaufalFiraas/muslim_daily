@@ -129,4 +129,40 @@ void main() {
       );
     });
   });
+
+  group('Get and Save Icon Status tests: ', () {
+    test('Error save case: ', () {
+      when(() => fakeProvider.saveIconReminderStatus(1, true))
+          .thenThrow(Exception());
+      expect(sholatpageRepositories.saveIconStatusToProvider(1, true),
+          isA<Future<void>>());
+    });
+
+    test('Success save case: ', () {
+      when(() => fakeProvider.saveIconReminderStatus(1, false))
+          .thenAnswer((_) => Future.value());
+      expect(sholatpageRepositories.saveIconStatusToProvider(1, false),
+          isA<Future<void>>());
+    });
+
+    test('Get failed case: ', () async {
+      when(() => fakeProvider.getIconReminderStatus(1)).thenThrow(Exception());
+      bool? result = await sholatpageRepositories.getIconStatusFromProvider(1);
+      expect(result, equals(null));
+    });
+
+    test('Get null value case: ', () async {
+      when(() => fakeProvider.getIconReminderStatus(1))
+          .thenAnswer((_) => Future.value(null));
+      bool? result = await sholatpageRepositories.getIconStatusFromProvider(1);
+      expect(result, equals(null));
+    });
+
+    test('Get available value case: ', () async {
+      when(() => fakeProvider.getIconReminderStatus(1))
+          .thenAnswer((_) => Future.value(false));
+      bool? result = await sholatpageRepositories.getIconStatusFromProvider(1);
+      expect(result, equals(false));
+    });
+  });
 }

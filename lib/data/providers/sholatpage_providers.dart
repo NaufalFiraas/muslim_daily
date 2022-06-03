@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:http/http.dart' as http;
+import 'package:muslim_daily/data/models/icon_reminder_status.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SholatpageProvider {
   Future<Map<String, dynamic>> determinePosition() async {
@@ -124,5 +126,14 @@ class SholatpageProvider {
     Map<String, dynamic> data = json.decode(response.body)['data'];
     double kabahDirection = data['derajat'] as double;
     return kabahDirection;
+  }
+
+  Future<void> saveIconReminderStatus(
+      SharedPreferences pref, int index, bool status) async {
+    await pref.setBool('$index', status);
+  }
+
+  Future<bool?> getIconReminderStatus(SharedPreferences pref, int index) async {
+    return pref.getBool('$index');
   }
 }

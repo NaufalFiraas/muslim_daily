@@ -1,41 +1,74 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bloc_test/bloc_test.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:muslim_daily/blocs/sholatpage_blocs/reminder_icon/reminder_icon_cubit.dart';
+import 'package:muslim_daily/data/repositories/sholatpage_repositories.dart';
+
+class FakeRepo extends Mock implements SholatpageRepositories {}
 
 void main() {
-  late ReminderIconCubit reminderCubit;
-  late List<bool> isReminderOn;
+  late SholatpageRepositories fakeRepo;
+  late ReminderIconCubit reminderIconCubit;
 
   setUp(() {
-    isReminderOn = List.generate(7, (index) => false);
-    reminderCubit = ReminderIconCubit(isReminderOn);
+    fakeRepo = FakeRepo();
+    reminderIconCubit = ReminderIconCubit(fakeRepo);
   });
 
-  test('Initial state: ReminderIconState(false)', () {
-    expect(reminderCubit.state, ReminderIconState(isReminderOn));
+  test('Initial state: IconSholatReminderChange()', () {
+    expect(reminderIconCubit.state, const IconSholatReminderChange());
   });
 
-  blocTest<ReminderIconCubit, ReminderIconState>(
-    'Set reminder to true',
-    build: () => ReminderIconCubit(isReminderOn),
-    act: (cubit) {
-      cubit.setReminder(1, true);
-    },
-    expect: () => <ReminderIconState>[
-      const ReminderIconState([false, true, false, false, false, false, false]),
-    ],
-  );
+  group('Icon state tests: ', () {
+    blocTest<ReminderIconCubit, IconSholatReminderState>(
+      'set to true case: ',
+      build: () => ReminderIconCubit(fakeRepo),
+      act: (cubit) {
+        cubit.setIconReminderValue(true);
+      },
+      expect: () => [const IconSholatReminderChange(true)],
+    );
 
-  blocTest<ReminderIconCubit, ReminderIconState>(
-    'Cancel reminder to true then false',
-    build: () => ReminderIconCubit(isReminderOn),
-    act: (cubit) {
-      cubit.setReminder(2, true);
-      cubit.setReminder(2, false);
-    },
-    expect: () => <ReminderIconState>[
-      const ReminderIconState([false, false, true, false, false, false, false]),
-      const ReminderIconState([false, false, false, false, false, false, false])
-    ],
-  );
+    blocTest<ReminderIconCubit, IconSholatReminderState>(
+      'set to false case: ',
+      build: () => ReminderIconCubit(fakeRepo),
+      act: (cubit) {
+        cubit.setIconReminderValue(false);
+      },
+      expect: () => [const IconSholatReminderChange(false)],
+    );
+  });
+
+  group('Get and set value case: ', () {
+    blocTest<ReminderIconCubit, IconSholatReminderState>(
+      'Save case: ',
+      build: () => ReminderIconCubit(fakeRepo),
+      act: (cubit) {
+        when(() => fakeRepo.saveIconStatusToProvider(1, false))
+            .thenAnswer((_) => Future.value());
+        cubit.saveStatusToPref(1, false);
+      },
+      expect: () => [],
+    );
+    blocTest<ReminderIconCubit, IconSholatReminderState>(
+      'Get null value case: ',
+      build: () => ReminderIconCubit(fakeRepo),
+      act: (cubit) {
+        when(() => fakeRepo.getIconStatusFromProvider(1))
+            .thenAnswer((_) => Future.value());
+        cubit.getStatusFromPref(1);
+      },
+      expect: () => [const IconSholatReminderChange(false)],
+    );
+    blocTest<ReminderIconCubit, IconSholatReminderState>(
+      'Get true value case: ',
+      build: () => ReminderIconCubit(fakeRepo),
+      act: (cubit) {
+        when(() => fakeRepo.getIconStatusFromProvider(1))
+            .thenAnswer((_) => Future.value(true));
+        cubit.getStatusFromPref(1);
+      },
+      expect: () => [const IconSholatReminderChange(true)],
+    );
+  });
 }

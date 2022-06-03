@@ -134,7 +134,7 @@ class SholatpageProvider {
     await pref.setBool('$index', status);
   }
 
-  Future<bool?> getIconReminder(int index,
+  Future<bool?> getIconReminderStatus(int index,
       [SharedPreferences? optionalPref]) async {
     SharedPreferences pref =
         optionalPref ?? await SharedPreferences.getInstance();

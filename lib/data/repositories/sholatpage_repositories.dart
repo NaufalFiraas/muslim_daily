@@ -119,7 +119,7 @@ class SholatpageRepositories {
 
   Future<bool?> getIconStatusFromProvider(int index) async {
     try {
-      return await sholatpageProvider!.getIconReminder(index);
+      return await sholatpageProvider!.getIconReminderStatus(index);
     } catch (e, stacktrace) {
       print(e.toString());
       print(stacktrace.toString());

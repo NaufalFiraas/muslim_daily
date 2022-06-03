@@ -1,24 +1,14 @@
 part of 'reminder_icon_cubit.dart';
 
-class ReminderIconState extends Equatable {
-  final List<bool> isReminderOn;
+abstract class IconSholatReminderState extends Equatable {
+  final bool status;
 
-  const ReminderIconState(this.isReminderOn);
+  const IconSholatReminderState(this.status);
+}
 
-  Map<String, dynamic> toMap() {
-    return {
-      'isReminderOn': isReminderOn,
-    };
-  }
+class IconSholatReminderChange extends IconSholatReminderState {
+  const IconSholatReminderChange([bool status = false]) : super(status);
 
   @override
-  List<Object?> get props => [isReminderOn];
-}
-
-class ReminderIconOn extends ReminderIconState {
-  const ReminderIconOn(List<bool> isReminderOn) : super(isReminderOn);
-}
-
-class ReminderIconOff extends ReminderIconState {
-  const ReminderIconOff(List<bool> isReminderOn) : super(isReminderOn);
+  List<Object?> get props => [status];
 }

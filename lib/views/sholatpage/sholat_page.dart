@@ -18,16 +18,11 @@ class SholatPage extends StatefulWidget {
 
 class _SholatPageState extends State<SholatPage> {
   late final SholatpageProvider sholatpageProvider;
-  late final SholatpageRepositories sholatpageRepo;
-  late final DateTime date;
   late final SholatReminderRepositories sholatReminderRepo;
 
   @override
   void initState() {
     super.initState();
-    date = DateTime.now();
-    sholatpageProvider = SholatpageProvider();
-    sholatpageRepo = SholatpageRepositories(sholatpageProvider, date);
     sholatReminderRepo =
         SholatReminderRepositories(FlutterLocalNotificationsPlugin());
     sholatReminderRepo.init();

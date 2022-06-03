@@ -1,15 +1,18 @@
 import 'dart:async';
 
-import 'package:flutter_compass/flutter_compass.dart';
 import 'package:muslim_daily/data/models/arah_kiblat.dart';
 import 'package:muslim_daily/data/models/sholatpage_model.dart';
 import 'package:muslim_daily/data/providers/sholatpage_providers.dart';
 
 class SholatpageRepositories {
-  final SholatpageProvider sholatpageProvider;
-  final DateTime date;
+  late final SholatpageProvider? sholatpageProvider;
+  late final DateTime? date;
 
-  const SholatpageRepositories(this.sholatpageProvider, this.date);
+  SholatpageRepositories(
+      [SholatpageProvider? optionalProvider, DateTime? optionalDate]) {
+    sholatpageProvider = optionalProvider ?? SholatpageProvider();
+    date = optionalDate ?? DateTime.now();
+  }
 
   Future<SholatpageModel?> getSholatData() async {
     double latitude;
@@ -21,7 +24,7 @@ class SholatpageRepositories {
     //  ambil data latitude longitude dari geolocator
     try {
       Map<String, dynamic> position =
-          await sholatpageProvider.determinePosition();
+          await sholatpageProvider!.determinePosition();
       latitude = position['latitude'];
       longitude = position['longitude'];
     } catch (e, stacktrace) {
@@ -33,7 +36,7 @@ class SholatpageRepositories {
     //  ambil data nama kota dari geocoding
     try {
       String? placemark =
-          await sholatpageProvider.getPlacemarks(latitude, longitude);
+          await sholatpageProvider!.getPlacemarks(latitude, longitude);
       city = placemark ?? 'Tidak Diketahui';
     } catch (e, stacktrace) {
       print(e.toString());
@@ -43,7 +46,7 @@ class SholatpageRepositories {
 
     //  ambil data kode kota dari http
     try {
-      cityCode = await sholatpageProvider.getCityCode(city);
+      cityCode = await sholatpageProvider!.getCityCode(city);
     } catch (e, stacktrace) {
       print(e.toString());
       print(stacktrace.toString());
@@ -53,7 +56,7 @@ class SholatpageRepositories {
     //  ambil data waktu sholat dari http
     try {
       getSholatTimeOutput =
-          await sholatpageProvider.getSholatTimes(cityCode, date);
+          await sholatpageProvider!.getSholatTimes(cityCode, date!);
     } catch (e, stacktrace) {
       print(e.toString());
       print(stacktrace.toString());
@@ -76,7 +79,7 @@ class SholatpageRepositories {
 
     try {
       Map<String, dynamic> position =
-          await sholatpageProvider.determinePosition();
+          await sholatpageProvider!.determinePosition();
       latitude = position['latitude'];
       longitude = position['longitude'];
     } catch (e, stacktrace) {
@@ -86,7 +89,7 @@ class SholatpageRepositories {
     }
 
     try {
-      city = await sholatpageProvider.getPlacemarks(latitude, longitude) ??
+      city = await sholatpageProvider!.getPlacemarks(latitude, longitude) ??
           'Lokasi tidak diketahui';
     } catch (e, stacktrace) {
       print(e.toString());
@@ -95,7 +98,7 @@ class SholatpageRepositories {
     }
 
     try {
-      kiblatDirection = await sholatpageProvider.getKiblatDirection(city);
+      kiblatDirection = await sholatpageProvider!.getKiblatDirection(city);
     } catch (e, stacktrace) {
       print(e.toString());
       print(stacktrace.toString());
@@ -103,5 +106,24 @@ class SholatpageRepositories {
     }
 
     return ArahKiblat(city, kiblatDirection);
+  }
+
+  Future<void> saveIconStatusToProvider(int index, bool value) async {
+    try {
+      await sholatpageProvider!.saveIconReminderStatus(index, value);
+    } catch (e, stacktrace) {
+      print(e.toString());
+      print(stacktrace.toString());
+    }
+  }
+
+  Future<bool?> getIconStatusFromProvider(int index) async {
+    try {
+      return await sholatpageProvider!.getIconReminderStatus(index);
+    } catch (e, stacktrace) {
+      print(e.toString());
+      print(stacktrace.toString());
+      return null;
+    }
   }
 }

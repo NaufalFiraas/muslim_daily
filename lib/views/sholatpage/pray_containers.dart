@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:muslim_daily/blocs/sholatpage_blocs/reminder_icon/reminder_icon_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:muslim_daily/blocs/sholatpage_blocs/sholat_reminder/sholat_reminder_cubit.dart';
-import 'package:muslim_daily/data/models/sholat_reminder_model.dart';
 import 'package:muslim_daily/views/quranpage/quran_page.dart';
 import 'package:muslim_daily/views/sholatpage/sholat_utilities.dart';
 

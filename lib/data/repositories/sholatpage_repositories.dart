@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter_compass/flutter_compass.dart';
 import 'package:muslim_daily/data/models/arah_kiblat.dart';
 import 'package:muslim_daily/data/models/sholatpage_model.dart';
 import 'package:muslim_daily/data/providers/sholatpage_providers.dart';

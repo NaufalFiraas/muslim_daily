@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:http/http.dart' as http;
-import 'package:muslim_daily/data/models/icon_reminder_status.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SholatpageProvider {
@@ -38,7 +37,7 @@ class SholatpageProvider {
   Future<String?> getPlacemarks(double latitude, double longitude) async {
     try {
       List<Placemark> placemark =
-      await placemarkFromCoordinates(latitude, longitude);
+          await placemarkFromCoordinates(latitude, longitude);
       return placemark[0].subAdministrativeArea;
     } catch (e, stackTrace) {
       print(e.toString());
@@ -51,13 +50,13 @@ class SholatpageProvider {
     String onlyCity = city.split(' ')[1].toLowerCase();
     http.Client client = optionalClient ?? http.Client();
     Uri url =
-    Uri.parse('https://api.myquran.com/v1/sholat/kota/cari/$onlyCity');
+        Uri.parse('https://api.myquran.com/v1/sholat/kota/cari/$onlyCity');
     http.Response response = await client.get(url);
     if (response.statusCode >= 400) {
       throw Exception('Gagal mengambil info kode kota');
     }
     List<dynamic> responseData =
-    json.decode(response.body)['data'] as List<dynamic>;
+        json.decode(response.body)['data'] as List<dynamic>;
     Map<String, dynamic> selectedMap = {};
 
     //  Telusuri data (Map<String, dynamic>)
@@ -97,7 +96,7 @@ class SholatpageProvider {
       throw Exception('Gagal mengambil info waktu sholat');
     }
     Map<String, dynamic> responseDecoded =
-    json.decode(response.body)['data']['jadwal'];
+        json.decode(response.body)['data']['jadwal'];
     Map<String, dynamic> sholatTimes = {
       'tanggal': responseDecoded['tanggal'],
       'waktu': {
@@ -130,12 +129,15 @@ class SholatpageProvider {
 
   Future<void> saveIconReminderStatus(int index, bool status,
       [SharedPreferences? optionalPref]) async {
-    SharedPreferences pref = optionalPref ?? await SharedPreferences.getInstance();
+    SharedPreferences pref =
+        optionalPref ?? await SharedPreferences.getInstance();
     await pref.setBool('$index', status);
   }
 
-  Future<bool?> getIconReminder(int index, [SharedPreferences? optionalPref]) async {
-    SharedPreferences pref = optionalPref ?? await SharedPreferences.getInstance();
+  Future<bool?> getIconReminder(int index,
+      [SharedPreferences? optionalPref]) async {
+    SharedPreferences pref =
+        optionalPref ?? await SharedPreferences.getInstance();
     return pref.getBool('$index');
   }
 }

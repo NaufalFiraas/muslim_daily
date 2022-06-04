@@ -117,7 +117,7 @@ class SholatpageProvider {
       [http.Client? optionalClient]) async {
     http.Client client = optionalClient ?? http.Client();
     String onlyCity = location.split(' ')[1].toLowerCase();
-    Uri url = Uri.parse('https://time.siswadi.com/qibla/?address=malang');
+    Uri url = Uri.parse('https://time.siswadi.com/qibla/?address=$onlyCity');
     http.Response response = await client.get(url);
     if (response.statusCode >= 400) {
       throw Exception('Gagal mengambil data lokasi kiblat');

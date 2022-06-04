@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:muslim_daily/blocs/sholatpage_blocs/sholat_reminder/sholat_reminder_cubit.dart';
 import 'package:muslim_daily/views/quranpage/quran_page.dart';
 import 'package:muslim_daily/views/sholatpage/sholat_utilities.dart';
-
+import '../../data/models/sholat_reminder_model.dart';
 import '../../data/repositories/sholat_reminder_repositories.dart';
 
 class PrayContainers extends StatefulWidget {
@@ -43,7 +43,7 @@ class _PrayContainersState extends State<PrayContainers> {
           create: (context) => ReminderIconCubit()..getStatusFromPref(i),
         ),
         BlocProvider(
-          create: (context) => SholatReminderCubit(sholatReminderRepo),
+          create: (context) => SholatReminderCubit(),
         ),
       ],
       child: Container(
@@ -82,14 +82,22 @@ class _PrayContainersState extends State<PrayContainers> {
                 children: [
                   (prays[i] != 'Imsak' && prays[i] != 'Syuruk')
                       ? Builder(builder: (context) {
-                          ReminderIconCubit iconCubit = context
-                              .watch<ReminderIconCubit>();
-                          IconSholatReminderChange iconState = iconCubit.state as IconSholatReminderChange;
+                          ReminderIconCubit iconCubit =
+                              context.watch<ReminderIconCubit>();
+                          IconSholatReminderChange iconState =
+                              iconCubit.state as IconSholatReminderChange;
+
+                          SholatReminderCubit sholatReminderCubit =
+                              context.read<SholatReminderCubit>();
+                          _notifMethod(iconCubit, sholatReminderCubit, prays[i],
+                              times[i]);
 
                           return IconButton(
                             onPressed: () {
                               iconCubit.saveStatusToPref(i, !iconState.status);
                               iconCubit.setIconReminderValue(!iconState.status);
+                              _notifMethod(iconCubit, sholatReminderCubit,
+                                  prays[i], times[i]);
                             },
                             icon: Icon(
                               iconState.status
@@ -116,24 +124,24 @@ class _PrayContainersState extends State<PrayContainers> {
     );
   }
 
-  // void _notifMethod(ReminderIconCubit reminderCubit,
-  //     SholatReminderCubit sholatReminder, String pray, dynamic time) {
-  //   if (reminderCubit.state.isReminderOn[i]) {
-  //     time as String;
-  //     List<String> splitTime = time.split(':');
-  //
-  //     sholatReminder.setReminder(
-  //       SholatReminderModel(
-  //         id: i,
-  //         title: pray,
-  //         body: 'Sholat $pray',
-  //         payload: 'Masuk Waktu $pray',
-  //         hour: int.parse(splitTime[0]),
-  //         minute: int.parse(splitTime[1]),
-  //       ),
-  //     );
-  //   } else {
-  //     sholatReminder.cancelReminder(i);
-  //   }
-  // }
+  void _notifMethod(ReminderIconCubit iconCubit,
+      SholatReminderCubit sholatReminder, String pray, dynamic time) {
+    if (iconCubit.state.status) {
+      time as String;
+      List<String> splitTime = time.split(':');
+
+      sholatReminder.setReminder(
+        SholatReminderModel(
+          id: i,
+          title: pray,
+          body: 'Sholat $pray',
+          payload: 'Masuk Waktu $pray',
+          hour: int.parse(splitTime[0]),
+          minute: int.parse(splitTime[1]),
+        ),
+      );
+    } else {
+      sholatReminder.cancelReminder(i);
+    }
+  }
 }

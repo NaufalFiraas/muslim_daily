@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:muslim_daily/blocs/sholatpage_blocs/add_sholat_time/add_sholat_time_bloc.dart';
 import 'package:muslim_daily/data/providers/sholatpage_providers.dart';
 import 'package:muslim_daily/data/repositories/sholat_reminder_repositories.dart';
@@ -23,8 +22,7 @@ class _SholatPageState extends State<SholatPage> {
   @override
   void initState() {
     super.initState();
-    sholatReminderRepo =
-        SholatReminderRepositories(FlutterLocalNotificationsPlugin());
+    sholatReminderRepo = SholatReminderRepositories();
     sholatReminderRepo.init();
   }
 

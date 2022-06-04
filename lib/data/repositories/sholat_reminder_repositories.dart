@@ -4,9 +4,12 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:rxdart/rxdart.dart';
 
 class SholatReminderRepositories {
-  final FlutterLocalNotificationsPlugin notification;
+  late final FlutterLocalNotificationsPlugin notification;
 
-  SholatReminderRepositories(this.notification);
+  SholatReminderRepositories(
+      [FlutterLocalNotificationsPlugin? optionalNotification]) {
+    notification = optionalNotification ?? FlutterLocalNotificationsPlugin();
+  }
 
   BehaviorSubject onNotification = BehaviorSubject<String?>();
 

@@ -8,10 +8,11 @@ import 'package:muslim_daily/data/repositories/sholat_reminder_repositories.dart
 part 'sholat_reminder_state.dart';
 
 class SholatReminderCubit extends Cubit<SholatReminderState> {
-  final SholatReminderRepositories repo;
+  late final SholatReminderRepositories repo;
   late StreamSubscription repoSubscription;
 
-  SholatReminderCubit(this.repo) : super(SholatReminderInitial()) {
+  SholatReminderCubit([SholatReminderRepositories? optionalRepo]) : super(SholatReminderInitial()) {
+    repo = optionalRepo ?? SholatReminderRepositories();
     repoSubscription = repo.onNotification.stream.listen((event) {
       onNotif(event);
     });
